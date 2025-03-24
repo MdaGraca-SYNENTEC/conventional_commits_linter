@@ -10,6 +10,14 @@ pub(super) fn generate_angular_type_commits() -> Vec<(Vec<String>, Vec<LintingEr
     generate_commit_messages(variations::ANGULAR_COMMIT_TYPE_VARIATIONS)
 }
 
+pub(super) fn generate_non_synentec_type_commits() -> Vec<(Vec<String>, Vec<LintingError>)> {
+    generate_commit_messages(variations::NON_SYNENTEC_COMMIT_TYPE_VARIATIONS)
+}
+
+pub(super) fn generate_synentec_type_commits() -> Vec<(Vec<String>, Vec<LintingError>)> {
+    generate_commit_messages(variations::SYNENTEC_COMMIT_TYPE_VARIATIONS)
+}
+
 fn generate_commit_messages(
     commit_type_variations: &[&str],
 ) -> Vec<(Vec<String>, Vec<LintingError>)> {

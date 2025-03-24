@@ -27,6 +27,15 @@ pub(super) const ANGULAR_COMMIT_TYPE_VARIATIONS: &[&str] = &[
     "refactor", "Refactor", "REVERT", "revert", "style", "Style", "test", "TEST",
 ];
 
+pub(super) const NON_SYNENTEC_COMMIT_TYPE_VARIATIONS: &[&str] = &[
+    "CICD", "cicd", "feature", "REVERTING", "lint", "Lint", "bug", "Bug", "BUG",
+];
+pub(super) const SYNENTEC_COMMIT_TYPE_VARIATIONS: &[&str] = &[
+    "Build", "build", "chore", "Chore", "ci", "CI", "docs", "doc", "Doc", "feat", "FEAT", "fix",
+    "Fix", "perf", "performance", "Performance", "refactor", "Refactor", "REVERT", "revert", "style",
+    "Style", "ui", "UI", "task", "Task", "test", "TEST",
+];
+
 const NO_SCOPE_VARIATIONS: &[&str] = &["", "!"];
 const EMPTY_SCOPE_VARIATIONS: &[&str] = &["()", "()!", "(  )", "(  )!"];
 const EXCLAMATION_MARK_BEFORE_EMPTY_SCOPE_VARIATIONS: &[&str] = &["!()", "!(  )"];

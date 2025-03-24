@@ -12,9 +12,15 @@ pub(crate) struct Arguments {
 
     #[arg(
         long,
-        help = "Allow the Conventional Commits type to only be (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
+        help = "Allow the Conventional Commits type to only be Angular types (`build`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `style`, `test`, `revert`), otherwise linting for the commit will fail."
     )]
     pub(crate) allow_angular_type_only: bool,
+
+    #[arg(
+        long,
+        help = "Allow the Conventional Commits type to only be Synentec types (`build`, `chore`, `ci`, `docs`, `doc`, `feat`, `fix`, `perf`, `performance`, `refactor`, `revert`, `style`, `ui`, `task`, `test`), otherwise linting for the commit will fail."
+    )]
+    pub(crate) allow_synentec_type_only: bool,
 
     #[arg(
         long,

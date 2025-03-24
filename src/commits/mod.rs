@@ -47,11 +47,11 @@ impl Commits {
         })
     }
 
-    pub fn lint(self, allow_angular_type_only: bool) -> Option<LintingErrors> {
+    pub fn lint(self, allow_angular_type_only: bool, allow_synentec_type_only: bool) -> Option<LintingErrors> {
         let mut errors: HashMap<Commit, Vec<LintingError>> = HashMap::new();
 
         for commit in self.commits.iter().cloned() {
-            let commit_errors = commit.lint(allow_angular_type_only);
+            let commit_errors = commit.lint(allow_angular_type_only, allow_synentec_type_only);
 
             if !commit_errors.is_empty() {
                 errors.insert(commit, commit_errors);

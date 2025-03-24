@@ -52,7 +52,7 @@ fn run(arguments: Arguments) -> Result<i32> {
         Commits::from_git(&repository, arguments.from, arguments.history_mode)
     }?;
 
-    if let Some(linting_results) = commits.lint(arguments.allow_angular_type_only) {
+    if let Some(linting_results) = commits.lint(arguments.allow_angular_type_only, arguments.allow_synentec_type_only) {
         match arguments.output {
             Output::Quiet => {}
             Output::Pretty => {

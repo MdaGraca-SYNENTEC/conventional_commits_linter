@@ -1,7 +1,8 @@
 use crate::linting_error::LintingError;
 
 mod allow_angular_type_only;
-mod constants;
+mod allow_synentec_type_only;
+pub mod constants;
 mod conventional_commits_specification;
 
 use self::constants::*;
@@ -46,7 +47,7 @@ impl Commit {
         }
     }
 
-    pub(crate) fn lint(&self, allow_angular_type_only: bool) -> Vec<LintingError> {
+    pub(crate) fn lint(&self, allow_angular_type_only: bool, allow_synentec_type_only: bool) -> Vec<LintingError> {
         let mut linting_errors = vec![];
 
         match conventional_commits_specification::lint(&self.message) {
@@ -98,6 +99,15 @@ impl Commit {
 
         if allow_angular_type_only {
             match allow_angular_type_only::lint(&self.message) {
+                Ok(()) => {}
+                Err(linting_error) => {
+                    linting_errors.push(linting_error);
+                }
+            }
+        }
+
+        if allow_synentec_type_only {
+            match allow_synentec_type_only::lint(&self.message) {
                 Ok(()) => {}
                 Err(linting_error) => {
                     linting_errors.push(linting_error);
