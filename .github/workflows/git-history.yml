@@ -1,6 +1,9 @@
 name: Git History
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
 
 env:
   # Forcing Earthly to use colours, to make reading output easier.
