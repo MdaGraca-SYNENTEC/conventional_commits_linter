@@ -7,6 +7,24 @@ use crate::commits::commit::Commit;
 use crate::linting_error::LintingError;
 use crate::source::Source;
 
+/// Extracts the allowed types from the Synentec regex pattern
+fn extract_synentec_types() -> String {
+    let raw_types = crate::commits::commit::constants::SYNENTEC_TYPE
+        .trim_start_matches('(')
+        .trim_end_matches(')');
+    
+    raw_types.split('|').collect::<Vec<&str>>().join(", ")
+}
+
+/// Extracts the allowed types from the Angular regex pattern
+fn extract_angular_types() -> String {
+    let raw_types = crate::commits::commit::constants::ANGULAR_TYPE
+        .trim_start_matches('(')
+        .trim_end_matches(')');
+    
+    raw_types.split('|').collect::<Vec<&str>>().join(", ")
+}
+
 pub(crate) fn print_all(
     source: Source,
     order: &VecDeque<Commit>,
@@ -45,8 +63,18 @@ pub(crate) fn print_all(
         if linting_errors.contains(&LintingError::NonAngularType) {
             let _ = writeln!(
                 pretty_print,
-                "\t{} - Commit title does not use an Angular type.",
-                red.paint("X")
+                "\t{} - Commit title does not use an Angular type. Allowed types are: {}.",
+                red.paint("X"),
+                extract_angular_types()
+            );
+        }
+
+        if linting_errors.contains(&LintingError::NonSynentecType) {
+            let _ = writeln!(
+                pretty_print,
+                "\t{} - Commit title does not use a Synentec type. Allowed types are: {}.",
+                red.paint("X"),
+                extract_synentec_types()
             );
         }
 

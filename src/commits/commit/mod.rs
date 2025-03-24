@@ -2,7 +2,7 @@ use crate::linting_error::LintingError;
 
 mod allow_angular_type_only;
 mod allow_synentec_type_only;
-mod constants;
+pub mod constants;
 mod conventional_commits_specification;
 
 use self::constants::*;
