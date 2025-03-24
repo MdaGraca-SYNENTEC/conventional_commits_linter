@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.15.0 (2025-03-24)
+
+## What's Changed
+* feat: add synentec specific allowed commit types
+* improve: enhance error logging, when using incorrect commit types
+* ci: remove publishing related workflows, since this is private fork 
+
+
+**Full Changelog**: https://github.com/DeveloperC286/conventional_commits_linter/compare/v0.14.3...v0.15.0
+
 ## 0.14.3 (2024-12-11)
 
 ## What's Changed

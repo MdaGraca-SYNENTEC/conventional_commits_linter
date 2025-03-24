@@ -4,7 +4,7 @@ pub(super) const OPTIONAL_EXCLAMATION: &str = "(!)?";
 pub const ANGULAR_TYPE: &str =
     "(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)";
 pub const SYNENTEC_TYPE: &str =
-    "(build|chore|ci|docs|doc|feat|fix|improve|perf|performance|refactor|revert|style|ui|task|test)";
+    "(build|chore|ci|docs|feat|fix|improve|perf|refactor|revert|style|ui|task|test)";
 pub(super) const EMPTY_SCOPE: &str = r"\(([[:space:]])*\)";
 pub(super) const TYPE: &str = r"([[:alpha:]])+";
 pub(super) const OPTIONAL_SCOPE: &str = r"(\([[:alpha:]]+(-[[:alpha:]]+)*\))?";
