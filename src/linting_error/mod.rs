@@ -9,6 +9,8 @@ pub enum LintingError {
     PrecedingWhitespace,
     /// Commit title does not use an Angular type
     NonAngularType,
+    /// Commit title does not use a Synentec type
+    NonSynentecType,
     /// Commit title has a exclamation mark before the scope.
     ExclamationMarkBeforeScope,
     /// Commit title has a scope which is empty.

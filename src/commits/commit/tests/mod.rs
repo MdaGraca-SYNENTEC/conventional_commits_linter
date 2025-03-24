@@ -52,7 +52,7 @@ fn test_angular_type_conventional_commits_and_only_angular_type(commit_message: 
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(true);
+    let linting_errors = commit.lint(true, false);
 
     // Then
     assert_eq!(
@@ -69,7 +69,7 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(false, false);
 
     // Then
     assert_eq!(
@@ -95,7 +95,6 @@ fn test_angular_type_conventional_commits(commit_message: &str) {
     case("feature!: incrementing API URL version (#1682)"),
     // Scope variatiants.
     case("deps(security): CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
-    case("doc(webpack): webpack example (#1436)\n\n* doc: weback example\r\n* doc(webpack): ignore dynamic module loading warnings"),
     case("deps(cve-dep-bump): CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
     // Breaking change and scope variatiants.
     case("deps(security)!: CVE-2021-3807\n\nUpdate string-width to 4.2.3"),
@@ -110,7 +109,7 @@ fn test_non_angular_type_conventional_commits_and_only_angular_type(commit_messa
     let expected_linting_errors = vec![LintingError::NonAngularType];
 
     // When
-    let linting_errors = commit.lint(true);
+    let linting_errors = commit.lint(true, false);
 
     // Then
     assert_eq!(
@@ -127,7 +126,118 @@ fn test_non_angular_type_conventional_commits(commit_message: &str) {
     let expected_linting_errors: Vec<LintingError> = vec![];
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(false, false);
+
+    // Then
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
+}
+
+#[template]
+#[rstest(
+    commit_message,
+    // Normal variants
+    case("doc: update documentation"),
+    case("ui: improve button styling"),
+    case("task: implement new feature"),
+    case("performance: optimize database queries"),
+    // Breaking change variants
+    case("doc!: update major documentation changes"),
+    case("ui!: redesign entire interface"),
+    case("task!: implement breaking feature"),
+    case("performance!: optimize entire system"),
+    // Scope variants
+    case("doc(api): update API documentation"),
+    case("ui(button): improve button styling"),
+    case("task(feature): implement new feature"),
+    case("performance(db): optimize database queries"),
+    // Breaking change and scope variants
+    case("doc(api)!: update major API documentation"),
+    case("ui(button)!: redesign button component"),
+    case("task(feature)!: implement breaking feature"),
+    case("performance(db)!: optimize entire database"),
+)]
+fn synentec_type_conventional_commits(commit_message: &str) {}
+
+#[apply(synentec_type_conventional_commits)]
+fn test_synentec_type_conventional_commits_and_only_synentec_type(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors: Vec<LintingError> = vec![];
+
+    // When
+    let linting_errors = commit.lint(false, true);
+
+    // Then
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
+}
+
+#[apply(synentec_type_conventional_commits)]
+fn test_synentec_type_conventional_commits(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors: Vec<LintingError> = vec![];
+
+    // When
+    let linting_errors = commit.lint(false, false);
+
+    // Then
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
+}
+
+#[template]
+#[rstest(
+    commit_message,
+    // Non-Synentec type variants
+    case("feature: add new feature"),
+    case("bugfix: fix bug"),
+    case("improvement: improve code"),
+    case("update: update dependencies"),
+    case("cleanup: clean up code"),
+    case("enhancement: enhance feature"),
+    case("hotfix: fix critical bug"),
+    case("misc: miscellaneous changes"),
+    case("wip: work in progress"),
+    case("config: update configuration"),
+)]
+fn non_synentec_type_conventional_commits(commit_message: &str) {}
+
+#[apply(non_synentec_type_conventional_commits)]
+fn test_non_synentec_type_conventional_commits_and_only_synentec_type(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors = vec![LintingError::NonSynentecType];
+
+    // When
+    let linting_errors = commit.lint(false, true);
+
+    // Then
+    assert_eq!(
+        expected_linting_errors, linting_errors,
+        "\n\nFailed the assertion upon the commit message:\n{:?}\n\n",
+        commit_message
+    );
+}
+
+#[apply(non_synentec_type_conventional_commits)]
+fn test_non_synentec_type_conventional_commits(commit_message: &str) {
+    // Given
+    let commit = Commit::from_commit_message(commit_message.to_string());
+    let expected_linting_errors: Vec<LintingError> = vec![];
+
+    // When
+    let linting_errors = commit.lint(false, false);
 
     // Then
     assert_eq!(
@@ -151,7 +261,7 @@ fn test_non_conventional_commits_fail_linting(commit_message: &str) {
     let commit = Commit::from_commit_message(commit_message.to_string());
 
     // When
-    let linting_errors = commit.lint(false);
+    let linting_errors = commit.lint(false, false);
 
     // Then
     assert!(
